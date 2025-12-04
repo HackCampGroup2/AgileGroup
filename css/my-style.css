@@ -105,5 +105,5 @@ main {
 
 .login-link:hover {
     text-decoration: underline; /* underline on hover */
-    color: black;
+    color: black; /* color */
 }
