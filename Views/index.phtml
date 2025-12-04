@@ -1,5 +1,50 @@
-<?php require('template/header.phtml') ?>
+<?php require('template/header.phtml') ?> <!-- Include the header template -->
+<div class="login-page d-flex flex-column justify-content-center align-items-center">
+    <!-- Login card container -->
+    <div class="login-card p-4 shadow rounded bg-white" style="max-width: 400px; width: 100%;">
 
+        <!-- Display authentication result message -->
+        <?php if (!empty($view->authMessage)): ?>
+            <div class="alert alert-info text-center" role="alert">
+                <?php echo htmlspecialchars($view->authMessage); ?>
+            </div>
+        <?php endif; ?>
 
+        <!-- Logout form -->
+        <?php if ($view->user->isLoggedIn()): ?>
+            <form action="index.php" method="POST" class="d-inline">
+                <button type="submit" name="logoutBtn" class="btn btn-danger w-100"
+                        aria-label="Log Out">Log Out
+                </button>
+            </form>
+        <?php else: ?>
+            <!-- Login form -->
+            <form action="index.php" method="POST">
+                <div class="row g-3 mb-3">
+                    <!--Username input -->
+                    <div class="col-12">
+                        <label for="username" class="form-label fw-semibold">Username</label>
+                        <input type="text" id="username" name="username" class="form-control" aria-required="true" required>
+                    </div>
 
-<?php require('template/footer.phtml') ?>
+                    <!-- Password input -->
+                    <div class="col-12">
+                        <label for="password" class="form-label fw-semibold">Password</label>
+                        <input type="password" id="password" name="password" class="form-control" required>
+                    </div>
+                </div>
+
+                <!-- Simple checkbox to verify user -->
+                <div class="form-check mb-3"> <!--mt-3 d-flex justify-content-end-->
+                    <input type="checkbox" id="botcheck" name="botcheck" class="form-check-input">
+                    <label class="form-check-label ms-2" for="botcheck">Are you human?</label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" name="loginBtn" class="btn btn-danger w-100">Log In</button>
+            </form>
+        <?php endif; ?>
+    </div>
+</div>
+
+<?php require('template/footer.phtml') ?> <!-- Include the footer template -->
