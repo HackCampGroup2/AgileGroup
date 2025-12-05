@@ -1,0 +1,54 @@
+{
+  "title": "Investment Knowledge Survey",
+  "description": "Assess your current experience and knowledge about investing",
+  "questions": [
+    {
+      "id": 1,
+      "question": "How would you rate your current knowledge about investing?",
+      "type": "radio",
+      "options": ["Beginner", "Intermediate", "Advanced", "Expert"]
+    },
+    {
+      "id": 2,
+      "question": "What types of investments are you familiar with? (Select all that apply)",
+      "type": "checkbox",
+      "options": ["Stocks", "Bonds", "Mutual Funds", "ETFs", "Real Estate", "Cryptocurrency", "None"]
+    },
+    {
+      "id": 3,
+      "question": "How long have you been investing?",
+      "type": "radio",
+      "options": ["Never invested", "Less than 1 year", "1-3 years", "3-5 years", "5+ years"]
+    },
+    {
+      "id": 4,
+      "question": "What is your main source of investment information?",
+      "type": "radio",
+      "options": ["Social Media", "Financial News", "Friends/Family", "Financial Advisor", "Books/Courses", "Other"]
+    },
+    {
+      "id": 5,
+      "question": "What is your primary investment goal?",
+      "type": "radio",
+      "options": ["Retirement", "Wealth Building", "Saving for a House", "Education", "Passive Income", "Not Sure"]
+    },
+    {
+      "id": 6,
+      "question": "On a scale of 1-5, how comfortable are you with investment risk? (1 = Very Uncomfortable, 5 = Very Comfortable)",
+      "type": "radio",
+      "options": ["1", "2", "3", "4", "5"]
+    },
+    {
+      "id": 7,
+      "question": "How much do you typically invest or save each month?",
+      "type": "radio",
+      "options": ["Less than $100", "$100-$500", "$500-$1,000", "$1,000-$2,000", "More than $2,000", "Not applicable"]
+    },
+    {
+      "id": 8,
+      "question": "What's your biggest concern about investing?",
+      "type": "radio",
+      "options": ["Losing money", "Not knowing where to start", "Market volatility", "Complexity", "Not having enough money", "No concerns"]
+    }
+  ]
+}

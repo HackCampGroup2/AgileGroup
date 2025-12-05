@@ -1,0 +1,70 @@
+<?php require('template/header.phtml'); ?>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 text-center">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body p-5">
+                        <!-- Success Icon -->
+                        <div class="mb-4">
+                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-success"
+                                 style="width: 80px; height: 80px;">
+                                <i class="bi bi-check-lg text-white" style="font-size: 2.5rem;"></i>
+                            </div>
+                        </div>
+
+                        <!-- Thank You Message -->
+                        <h1 class="display-5 fw-bold text-danger mb-3">Thank You!</h1>
+                        <p class="lead mb-4">
+                            Thank you for completing our investment knowledge survey.
+                            Your feedback helps us understand how to better educate young investors.
+                        </p>
+
+                        <!-- Next Steps -->
+                        <div class="alert alert-success" role="alert">
+                            <h5 class="alert-heading"><i class="bi bi-lightbulb"></i> What's Next?</h5>
+                            <p class="mb-0">
+                                Continue your investment education journey by exploring our roadmap
+                                and learning modules.
+                            </p>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center mt-4">
+                            <a href="roadmap.php" class="btn btn-danger btn-lg px-4">
+                                <i class="bi bi-map"></i> Go to Roadmap
+                            </a>
+                            <a href="index.php" class="btn btn-outline-secondary btn-lg px-4">
+                                <i class="bi bi-house"></i> Return Home
+                            </a>
+                        </div>
+
+                        <!-- Fun Facts (Optional) -->
+                        <div class="mt-5 pt-4 border-top">
+                            <h6 class="text-muted mb-3">Did You Know?</h6>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card border-info border-1">
+                                        <div class="card-body">
+                                            <i class="bi bi-coin text-info fs-4 mb-2"></i>
+                                            <p class="card-text mb-0"><small>Starting to invest early can significantly impact your long-term wealth.</small></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card border-warning border-1">
+                                        <div class="card-body">
+                                            <i class="bi bi-graph-up text-warning fs-4 mb-2"></i>
+                                            <p class="card-text mb-0"><small>Compound interest is often called the "8th wonder of the world."</small></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<?php require('template/footer.phtml'); ?>
