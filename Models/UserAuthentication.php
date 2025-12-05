@@ -106,6 +106,7 @@ class User
 
     public function register($username, $email, $password)
     {
+
         $sql = "INSERT INTO users (username, email, password_hash) 
             VALUES (:username, :email, :password_hash)";
         $statement = $this->_dbHandle->prepare($sql);
@@ -123,6 +124,36 @@ class User
         } catch (PDOException $e) {
             return false; // Duplicate username/email or other DB error
         }
+    }
+
+    public function validatePassword($password)
+    {
+        // Length requirement
+        if (strlen($password) < 8) {
+            return "Password must be at least 8 characters long.";
+        }
+
+        // Character mix requirement: uppercase, lowercase, number, symbol
+        if (
+            !preg_match('/[A-Z]/', $password) ||
+            !preg_match('/[a-z]/', $password) ||
+            !preg_match('/[0-9]/', $password) ||
+            !preg_match('/[\W_]/', $password) // symbols & underscore
+        ) {
+            return "Password must include uppercase, lowercase, numbers, and symbols.";
+        }
+
+        // Basic dictionary word / name protection
+        // This prevents users from using common words
+        $commonWords = ['password', 'qwerty', 'letmein', 'welcome', 'admin', 'user'];
+
+        foreach ($commonWords as $word) {
+            if (stripos($password, $word) !== false) {
+                return "Password cannot contain common dictionary words.";
+            }
+        }
+
+        return true; // Passed validation
     }
 
 
