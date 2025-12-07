@@ -2,24 +2,66 @@
 
 <div class="learning-container position-relative">
 
+    <!-- MOVED HERE -->
+    <div class="d-flex align-items-center mb-3 gap-2" style="z-index: 20; position: relative;">
+        <button id="prevSlide" class="btn btn-secondary">◀ Previous</button>
+        <div class="flex-grow-1">
+            <div id="progressBarContainer" class="bg-secondary rounded overflow-hidden" style="height:8px;">
+                <div id="progressBar" class="bg-primary h-100 w-0"></div>
+            </div>
+        </div>
+        <button id="nextSlide" class="btn btn-primary">Next ▶</button>
+    </div>
+    <!-- END MOVED -->
+
     <div id="slides" style="position: relative; min-height: 300px;">
 
-        <div class="slide active text-center">
-            <h1>What Is Investing?</h1>
-            <p>Imagine planting a tiny seed. You water it... and over time it grows into a big strong tree!
-                Investing works the same way — but with money instead of plants.</p>
+        <div class="slide active text-center position-relative">
+
+            <!-- FLOATING IMAGE (DOES NOT AFFECT LAYOUT) -->
+            <img src="../images/bell_avatar.png"
+                 alt="Bell Avatar"
+                 class="floating-avatar">
+
+            <div class="login-card roadmap-card card shadow-sm p-4 w-100">
+                <h1><strong>Module 1: What Is Investing?</strong></h1>
+                <h2>What does investing mean?</h2>
+                <p>Investing is when you put your money into something that can grow in value over time.
+                    A helpful way to think about it is like planting a smart money seed: it doesn’t grow instantly, and sometimes it might dip during bad weather, but over the long run it has the potential to grow into something much bigger. Instead of letting money sit still, investing puts it to work so it can help you reach future goals.</p>
+                <p>The key idea is that your money isn’t just sitting still anymore. It’s being used to help companies grow, build new products, or open new locations, and if things go well, you benefit from that growth too.</p>
+            </div>
+
+        </div>
+
+
+
+        <div class="slide text-center">
+            <div class="login-card roadmap-card card shadow-sm p-4 w-100">
+                <h1><strong>Module 1: What Is Investing?</strong></h1>
+                <h2>Why do investments grow?</h2>
+                <p>Investments grow mainly because companies grow. When businesses make more profit, expand, or become more popular, the value of their shares rises. Over long periods of time, entire economies get bigger, technology improves, and successful companies tend to earn more money.</p>
+                <p>This growth is reflected in the value of their stocks or funds. That’s why investing early and staying invested for a long time often leads to strong results—even with the ups and downs along the way.</p>
+            </div>
         </div>
 
         <div class="slide text-center">
+            <div class="login-card roadmap-card card shadow-sm p-4 w-100">
+                <h1><strong>Module 1: What Is Investing?</strong></h1>
+                <h2>Risk vs Reward</h2>
+                <p>Every investment comes with some level of risk. Prices can rise and fall because of world events, company news, or changes in the economy. This can feel stressful at times, but it’s completely normal.</p>
+                <p>The important thing to know is that risk and reward are connected: safer investments usually grow slowly, while higher-risk investments can grow more—especially over many years. Smart investors learn how to balance both by diversifying and staying patient.</p>
+            </div>
+        </div>
 
-            <h1>Your Investment Roadmap</h1>
-            <p>This is your journey through life — every year is a step. Investing helps you reach your goals faster!</p>
+        <div class="slide text-center">
+            <h1><strong>Module 2: Benefits of Investing</strong></h1>
+            <h2>Building wealth over time</h2>
+            <p>One of the biggest advantages of investing is how much your money can grow over long periods. Even small amounts invested consistently can increase significantly thanks to compounding, the effect where your returns start earning returns of their own.</p>
+            <p>This is why starting young is such a superpower. The earlier you begin, the more time your investments have to multiply.</p>
 
             <div class="roadmap-wrapper d-flex flex-column align-items-center">
 
                 <div class="login-card roadmap-card card shadow-sm p-4 w-100" style="max-width:900px; position: relative;">
-
-                    <h2>S&P500</h2>
 
                     <div class="portfolio-bar d-flex justify-content-between align-items-center p-3 mb-4 bg-light rounded">
                         <div>
@@ -64,40 +106,105 @@
         </div>
 
         <div class="slide text-center">
-            <h1>Your Money Has Superpowers!</h1>
-            <p>When you invest, your money goes on a little adventure. It works hard while you sleep — slowly growing over time like magic.</p>
-        </div>
-
-        <div class="slide text-center">
-            <h1>Why Bother Investing?</h1>
-            <p>Because your money grows faster than a normal savings account. It’s like your coins learn to run instead of walk!</p>
-        </div>
-
-        <div class="slide text-center">
-            <h1>Stock Market Basics</h1>
-            <p>Think of it as a giant store where you can buy tiny pieces of companies. If the company does well, your piece grows in value!</p>
-        </div>
-
-        <div class="slide text-center">
-            <h1>Online Safety</h1>
-            <p>Always protect your information. Treat your investment account like a secret treasure chest — only you should have the key.</p>
-        </div>
-
-        <div class="slide text-center">
-            <h1>Major Life Events</h1>
-            <p>Investing helps you reach goals like buying your first house. The earlier you start, the easier it is to reach them!</p>
-        </div>
-
-    </div>
-
-    <div class="d-flex align-items-center mt-3 gap-2" style="z-index: 20; position: relative;">
-        <button id="prevSlide" class="btn btn-secondary">◀ Previous</button>
-        <div class="flex-grow-1">
-            <div id="progressBarContainer" class="bg-secondary rounded overflow-hidden" style="height:8px;">
-                <div id="progressBar" class="bg-primary h-100 w-0"></div>
+            <div class="login-card roadmap-card card shadow-sm p-4 w-100">
+                <h1><strong>Module 2: Benefits of Investing</strong></h1>
+                <h2>Beating inflation</h2>
+                <p>Inflation means everyday things such as food, clothes, and travel, slowly get more expensive over time. If your money doesn’t grow, it loses buying power.</p>
+                <p>Investing helps your money grow faster than inflation, giving you the chance to maintain or increase what you can afford in the future. It’s one of the most effective ways to protect the real value of your money.</p>
             </div>
         </div>
-        <button id="nextSlide" class="btn btn-primary">Next ▶</button>
+
+        <div class="slide text-center">
+            <div class="login-card roadmap-card card shadow-sm p-4 w-100">
+                <h1><strong>Module 2: Benefits of Investing</strong></h1>
+                <h2>Creating financial freedom</h2>
+                <p>Investing can unlock choices that might not otherwise be possible. It helps you save for things like travelling, university, moving out, or starting a business one day.</p>
+                <p>Financial freedom doesn’t mean being rich—it means having options. Investing gives you more control over your future so you're not relying entirely on your job or parents as you get older.</p>
+            </div>
+        </div>
+
+        <div class="slide text-center">
+            <div class="login-card roadmap-card card shadow-sm p-4 w-100">
+                <h1><strong>Module 3: Stock Market Basics</strong></h1>
+                <h2>What is a share?</h2>
+                <p>A share represents a tiny piece of a company. When you buy one, you become a small owner of that business. If the company grows, earns more money, or becomes more popular, the value of your share usually increases.</p>
+                <p>You’re essentially trusting the company’s success, and in return, you get part of the profits and part of the growth.</p>
+            </div>
+        </div>
+
+        <div class="slide text-center">
+            <div class="login-card roadmap-card card shadow-sm p-4 w-100">
+                <h1><strong>Module 3: Stock Market Basics</strong></h1>
+                <h2>How the stock market works</h2>
+                <p>The stock market is like a huge online marketplace where people buy and sell shares every second of the day. Prices constantly change based on supply and demand—how many people want to buy something versus how many want to sell it.</p>
+                <p>When lots of people believe a company will perform well, more buyers appear and the price goes up. When investors lose confidence, the price falls. These movements might seem random day to day, but over many years, the market has historically grown.</p>
+            </div>
+        </div>
+
+        <div class="slide text-center">
+            <div class="login-card roadmap-card card shadow-sm p-4 w-100">
+                <h1><strong>Module 3: Stock Market Basics</strong></h1>
+                <h2>Diversification: don’t put all your eggs in one basket</h2>
+                <p>Diversification means spreading your money across many different investments instead of relying on just one. If one company has a bad year, your entire investment won’t collapse because the others can balance it out.</p>
+                <p>This is why funds are popular—they include many companies at once, giving you instant diversification with just a single purchase.</p>
+            </div>
+        </div>
+
+        <div class="slide text-center">
+            <div class="login-card roadmap-card card shadow-sm p-4 w-100">
+                <h1><strong>Module 4: Online Safety When Investing</strong></h1>
+                <h2>Protecting personal information</h2>
+                <p>Your investment account holds sensitive financial information, so keeping it safe is essential. Always use strong, unique passwords and avoid logging in on shared or public computers.</p>
+                <p>Treat your account like a locked vault—only you should be able to access it. Even a small slip can lead to big problems.</p>
+            </div>
+        </div>
+
+        <div class="slide text-center">
+            <div class="login-card roadmap-card card shadow-sm p-4 w-100">
+                <h1><strong>Module 4: Online Safety When Investing</strong></h1>
+                <h2>Avoiding scams</h2>
+                <p>Scams are becoming more common, especially online. If someone promises extremely high returns with “no risk,” pressures you to invest quickly, or contacts you out of nowhere, it’s almost always a scam.</p>
+                <p>Real investing takes time, involves risk, and never guarantees huge profits overnight. If something feels suspicious, it probably is.</p>
+                <button>CLICK HERE -> FREE INVESTING MONEY</button>
+            </div>
+        </div>
+
+        <div class="slide text-center">
+            <div class="login-card roadmap-card card shadow-sm p-4 w-100">
+                <h1><strong>Module 4: Online Safety When Investing</strong></h1>
+                <h2>Creating safe habits online</h2>
+                <p>Using two-factor authentication (2FA), keeping your phone and laptop updated, and turning on security features can block most attacks before they happen.</p>
+                <p>These small habits create big protection. Online safety is part of being a responsible modern investor.</p>
+            </div>
+        </div>
+
+        <div class="slide text-center">
+            <div class="login-card roadmap-card card shadow-sm p-4 w-100">
+                <h1><strong>Module 5: How Investing Impacts Major Life Events</strong></h1>
+                <h2>Saving for big milestones</h2>
+                <p>Many major life events—like buying your first car, paying for university, or moving into your own place—require money. Investing can help you reach these goals faster than regular saving alone.</p>
+                <p>By planning ahead and investing early, you reduce stress later and give yourself more opportunities when these milestones arrive.</p>
+            </div>
+        </div>
+
+        <div class="slide text-center">
+            <div class="login-card roadmap-card card shadow-sm p-4 w-100">
+                <h1><strong>Module 5: How Investing Impacts Major Life Events</strong></h1>
+                <h2>Investing early gives you massive advantages</h2>
+                <p>Time is the most powerful tool in investing. Even small amounts invested as a teenager can grow into something surprisingly large by adulthood because compounding multiplies your money the longer it sits.</p>
+                <p>Starting early doesn’t just give you more money—it gives you more time to learn, make decisions, and build confidence.</p>
+            </div>
+        </div>
+
+        <div class="slide text-center">
+            <div class="login-card roadmap-card card shadow-sm p-4 w-100">
+                <h1><strong>Module 5: How Investing Impacts Major Life Events</strong></h1>
+                <h2>Staying invested through ups and downs</h2>
+                <p>The market will rise and fall throughout your life. It’s normal, and every investor experiences it. What matters most is staying calm and sticking to your long-term plan.</p>
+                <p>People who stay invested through difficult times often come out stronger, because markets historically recover and grow over the long run.</p>
+            </div>
+        </div>
+
     </div>
 
 </div>

@@ -15,25 +15,32 @@ function updateProgress() {
 function showSlide(index) {
     if (isTransitioning || index === currentSlide) return;
     isTransitioning = true;
+
     const current = slides[currentSlide];
     const next = slides[index];
+
+    currentSlide = index;
+    updateProgress();
 
     current.classList.add("fade-out");
     current.classList.remove("active");
 
     setTimeout(() => {
         current.classList.remove("fade-out");
+
         next.classList.add("active", "fade-in");
 
         setTimeout(() => {
             next.classList.remove("fade-in");
-            currentSlide = index;
-            updateProgress();
+
             if (currentSlide === 1) alignPlayer();
+
             isTransitioning = false;
-        }, 1000);
-    }, 1000);
+        }, 500);
+
+    }, 500);
 }
+
 
 prevBtn.addEventListener("click", () => showSlide(currentSlide - 1));
 nextBtn.addEventListener("click", () => showSlide(currentSlide + 1));
@@ -41,9 +48,6 @@ nextBtn.addEventListener("click", () => showSlide(currentSlide + 1));
 updateProgress();
 slides[currentSlide].classList.add("active");
 
-// ------------------------
-// ROADMAP / PLAYER / INVESTING
-// ------------------------
 const ageButton = document.getElementById("ageButton");
 const player = document.querySelector(".player-container");
 const steps = document.querySelectorAll("#board .step-circle");

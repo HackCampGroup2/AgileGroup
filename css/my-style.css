@@ -164,3 +164,15 @@ body {
     margin: 20px auto 0;
     display: block;
 }
+
+.floating-avatar {
+    position: absolute;
+    left: -230px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 240px;
+    height: auto;
+    z-index: 5;
+    pointer-events: none;
+}
+
