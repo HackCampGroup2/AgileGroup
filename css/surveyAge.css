@@ -1,0 +1,17 @@
+
+.age-option {
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    cursor: pointer;
+}
+.age-option:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.age-option.selected {
+    border-color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.05);
+}
+.cursor-pointer {
+    cursor: pointer;
+}
