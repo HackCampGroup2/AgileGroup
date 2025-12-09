@@ -237,6 +237,7 @@
                             <!-- Question form
                              - Posts the selected answer back to quiz.php
                              - The answer field represents the index of the chosen option
+                             - Preserve previously selected answer
                              -->
                             <form action="quiz.php" method="POST">
                                 <div class="mb-4">
@@ -248,7 +249,6 @@
                                                    name="answer"
                                                    id="option<?= $index ?>"
                                                    value="<?= $index ?>"
-                                                   <!-- Preserve previously selected answer -->
                                                     <?= (isset($view->userAnswers['q' . $view->currentQuestion]) &&
                                                             $view->userAnswers['q' . $view->currentQuestion] == $index) ? 'checked' : '' ?>
                                                    required>
