@@ -1,150 +1,260 @@
-let cash = parseFloat(localStorage.getItem("cash")) || 10000;
-let points = parseInt(localStorage.getItem("points")) || 0;
-let holdings = JSON.parse(localStorage.getItem("holdings")) || {};
-let portfolioHistory = JSON.parse(localStorage.getItem("portfolioHistory")) || [];
+const INITIAL_CASH = 1000;
 
-let assets = [
-    { name: "GreenTech Co.", price: 100 },
-    { name: "FutureFoods Ltd.", price: 150 },
-    { name: "BrightEnergy Inc.", price: 200 },
-    { name: "EduGrow Corp.", price: 80 }
+const LS = {
+    cash: "vp_cash",
+    holdings: "vp_holdings",
+    points: "vp_points",
+    hist: "vp_hist",
+    badges: "vp_badges"
+};
+
+let cash = parseFloat(localStorage.getItem(LS.cash)) || INITIAL_CASH;
+let holdings = JSON.parse(localStorage.getItem(LS.holdings)) || {};
+let points = parseInt(localStorage.getItem(LS.points)) || 0;
+let history = JSON.parse(localStorage.getItem(LS.hist)) || [];
+let badges = JSON.parse(localStorage.getItem(LS.badges)) || {
+    first: false,
+    diversify: false,
+    growth: false
+};
+
+let companies = [
+    { symbol: "AAPL", name: "Apple Inc.", price: 170, prev:170 },
+    { symbol: "MSFT", name: "Microsoft", price: 320, prev:320 },
+    { symbol: "GOOGL", name: "Alphabet (Google)", price:130, prev:130 },
+    { symbol: "AMZN", name: "Amazon", price:110, prev:110 },
+    { symbol: "TSLA", name: "Tesla", price:230, prev:230 },
+    { symbol: "META", name: "Meta Platforms", price:170, prev:170 },
+    { symbol: "NFLX", name: "Netflix", price:60, prev:60 },
+    { symbol: "KO", name: "Coca-Cola", price:45, prev:45 },
+    { symbol: "NKE", name: "Nike", price:95, prev:95 },
+    { symbol: "VOD", name: "Vodafone", price:1.2, prev:1.2 },
+
+    { symbol: "NVDA", name: "NVIDIA Corporation", price: 480, prev:480 },
+    { symbol: "AMD", name: "Advanced Micro Devices", price:120, prev:120 },
+    { symbol: "INTC", name: "Intel Corporation", price:32, prev:32 },
+    { symbol: "IBM", name: "IBM", price:140, prev:140 },
+    { symbol: "ORCL", name: "Oracle", price:110, prev:110 }
 ];
 
-// --- SAVE FUNCTION ---
-function save() {
-    localStorage.setItem("cash", cash);
-    localStorage.setItem("points", points);
-    localStorage.setItem("holdings", JSON.stringify(holdings));
-    localStorage.setItem("portfolioHistory", JSON.stringify(portfolioHistory));
+
+/* -------------------------------------------
+   UTILITY
+------------------------------------------- */
+const gbp = n => "£" + n.toFixed(2);
+
+function save(){
+    localStorage.setItem(LS.cash, cash);
+    localStorage.setItem(LS.points, points);
+    localStorage.setItem(LS.holdings, JSON.stringify(holdings));
+    localStorage.setItem(LS.hist, JSON.stringify(history));
+    localStorage.setItem(LS.badges, JSON.stringify(badges));
 }
 
-// --- UI UPDATES ---
-let portfolioValue = 0;
-function updateUI() {
-    document.getElementById("cash-display").innerText = `Cash: €${cash.toFixed(2)}`;
-    document.getElementById("points-display").innerText = `Points: ${points}`;
-
-    portfolioValue = cash;
-    Object.keys(holdings).forEach(name => {
-        let asset = assets.find(a => a.name === name);
-        portfolioValue += holdings[name] * asset.price;
-    });
-    document.getElementById("portfolio-value").innerText = `€${portfolioValue.toFixed(2)}`;
-
-    // Badges
-    let badgeText = "";
-    if (Object.keys(holdings).length >= 3) badgeText = "Badge: Diversifier!";
-    if (portfolioValue >= 10500) badgeText = "Badge: Steady Growth!";
-    document.getElementById("badge-display").innerText = badgeText;
-}
-
-// --- RENDER MARKET ---
-function renderMarket() {
-    const body = document.querySelector("#market-table tbody");
-    body.innerHTML = "";
-    assets.forEach(asset => {
-        body.innerHTML += `
-      <tr>
-        <td>${asset.name}</td>
-        <td>€${asset.price.toFixed(2)}</td>
-        <td><button class="btn btn-success btn-sm" onclick="buy('${asset.name}')">Buy</button></td>
-      </tr>
-    `;
-    });
-}
-
-// --- RENDER PORTFOLIO ---
-function renderPortfolio() {
-    const body = document.querySelector("#portfolio-table tbody");
-    body.innerHTML = "";
-    Object.keys(holdings).forEach(name => {
-        let asset = assets.find(a => a.name === name);
-        let qty = holdings[name];
-        let total = qty * asset.price;
-        body.innerHTML += `
-      <tr>
-        <td>${name}</td>
-        <td>${qty}</td>
-        <td>€${asset.price.toFixed(2)}</td>
-        <td>€${total.toFixed(2)}</td>
-        <td><button class="btn btn-warning btn-sm" onclick="sell('${name}')">Sell</button></td>
-      </tr>
-    `;
-    });
-}
-
-// --- BUY / SELL ---
-function buy(name) {
-    let asset = assets.find(a => a.name === name);
-    if(cash >= asset.price){
-        cash -= asset.price;
-        holdings[name] = (holdings[name] || 0) + 1;
-        points += 5;
-        save(); updateUI(); renderPortfolio();
+/* -------------------------------------------
+   PORTFOLIO VALUE
+------------------------------------------- */
+function portfolioValue(){
+    let total = cash;
+    for(let s in holdings){
+        let comp = companies.find(c => c.symbol === s);
+        total += holdings[s].qty * comp.price;
     }
-}
-function sell(name) {
-    if(holdings[name] > 0){
-        let asset = assets.find(a => a.name === name);
-        cash += asset.price;
-        holdings[name]--;
-        points += 3;
-        if(holdings[name]===0) delete holdings[name];
-        save(); updateUI(); renderPortfolio();
-    }
+    return total;
 }
 
-// --- PRICE UPDATE (MILD VOLATILITY + UPWARD TREND) ---
-function updatePrices() {
-    assets.forEach(asset => {
-        let change = (Math.random() - 0.5) * 0.01; // -0.5% to +0.5%
-        asset.price *= (1 + change + 0.001); // slight upward bias
+/* -------------------------------------------
+   RENDER UI
+------------------------------------------- */
+function renderDropdown(){
+    const sel = document.getElementById("dropdown-company");
+    sel.innerHTML = "";
+    companies.forEach(c=>{
+        sel.innerHTML += `<option value="${c.symbol}">${c.name} (${c.symbol})</option>`;
     });
 }
 
-// --- CHART SETUP ---
-const ctx = document.getElementById('portfolioChart').getContext('2d');
-const portfolioChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: portfolioHistory.map((_, i) => i),
-        datasets: [{
-            label: 'Portfolio Value',
-            data: portfolioHistory,
-            borderColor: 'green',
-            backgroundColor: 'rgba(0,255,0,0.2)',
-            tension: 0.2,
-            fill: true
+function renderHeader(){
+    document.getElementById("cash-display").innerText = "Cash: " + gbp(cash);
+    document.getElementById("points-display").innerText = "Points: " + points;
+}
+
+function renderPortfolioValue(){
+    document.getElementById("portfolio-value").innerText = gbp(portfolioValue());
+}
+
+function renderMarket(){
+    let tb = document.querySelector("#market-table tbody");
+    tb.innerHTML = "";
+    companies.forEach(c=>{
+        let diff = c.price - c.prev;
+        let diffPct = (diff / c.prev) * 100;
+        let cls = diff > 0 ? "text-success" : diff < 0 ? "text-danger" : "";
+        tb.innerHTML += `
+      <tr>
+        <td>${c.name} <div class="small text-muted">${c.symbol}</div></td>
+        <td class="${cls}">${gbp(c.price)}</td>
+        <td class="${cls}">${diff >= 0 ? "+" : ""}${diff.toFixed(2)} (${diffPct>=0?"+":""}${diffPct.toFixed(2)}%)</td>
+        <td><button class="btn btn-success btn-sm" onclick="buy('${c.symbol}',1)">Buy</button></td>
+      </tr>`;
+    });
+}
+
+function renderHoldings(){
+    let tb = document.querySelector("#portfolio-table tbody");
+    tb.innerHTML = "";
+    let keys = Object.keys(holdings);
+    if(keys.length === 0){
+        tb.innerHTML = `<tr><td colspan="6" class="text-muted">No assets yet.</td></tr>`;
+        return;
+    }
+
+    keys.forEach(sym=>{
+        let h = holdings[sym];
+        let c = companies.find(x=>x.symbol===sym);
+        let total = h.qty * c.price;
+        let pct = ((c.price - h.avg) / h.avg) * 100;
+        let pc = pct > 0 ? "text-success" : pct < 0 ? "text-danger" : "";
+        tb.innerHTML += `
+      <tr>
+        <td>${c.name} <div class="small text-muted">${sym}</div></td>
+        <td>${h.qty}</td>
+        <td>${gbp(c.price)}</td>
+        <td>${gbp(total)}</td>
+        <td class="${pc}">${pct>=0?"+":""}${pct.toFixed(2)}%</td>
+        <td><button class="btn btn-warning btn-sm" onclick="sell('${sym}',1)">Sell</button></td>
+      </tr>`;
+    });
+}
+
+/* -------------------------------------------
+   BUY / SELL
+------------------------------------------- */
+function buy(sym, qty){
+    qty = parseInt(qty);
+    let c = companies.find(x=>x.symbol===sym);
+    let cost = qty * c.price;
+    if(cost > cash){ alert("Not enough cash!"); return; }
+
+    cash -= cost;
+
+    if(!holdings[sym]){
+        holdings[sym] = { qty: qty, avg: c.price };
+    } else {
+        let h = holdings[sym];
+        let totalQty = h.qty + qty;
+        let newAvg = ((h.avg * h.qty) + (c.price * qty)) / totalQty;
+        holdings[sym] = { qty: totalQty, avg: newAvg };
+    }
+
+    points += 5;
+
+    if(!badges.first){
+        badges.first = true;
+        points += 10;
+    }
+
+    if(Object.keys(holdings).length >= 3 && !badges.diversify){
+        badges.diversify = true;
+        points += 20;
+    }
+
+    save();
+    renderAll();
+}
+
+function sell(sym, qty){
+    qty = parseInt(qty);
+    if(!holdings[sym] || holdings[sym].qty < qty) return;
+
+    let c = companies.find(x=>x.symbol===sym);
+    cash += qty * c.price;
+
+    holdings[sym].qty -= qty;
+    if(holdings[sym].qty <= 0) delete holdings[sym];
+
+    points += 3;
+
+    save();
+    renderAll();
+}
+
+/* DROPDOWN BUY/SELL */
+function dropdownBuy(){
+    let sym = document.getElementById("dropdown-company").value;
+    let qty = document.getElementById("dropdown-qty").value;
+    buy(sym, qty);
+}
+function dropdownSell(){
+    let sym = document.getElementById("dropdown-company").value;
+    let qty = document.getElementById("dropdown-qty").value;
+    sell(sym, qty);
+}
+
+/* -------------------------------------------
+   PRICE MOVEMENT
+------------------------------------------- */
+const VOL = 0.007;
+const TREND = 0.001;
+
+function updatePrices(){
+    companies.forEach(c=>{
+        c.prev = c.price;
+        let rand = (Math.random()*2 - 1) * VOL;
+        c.price *= (1 + rand + TREND);
+        if(c.price < 0.1) c.price = 0.1;
+    });
+}
+
+/* -------------------------------------------
+   CHART
+------------------------------------------- */
+if(history.length === 0) history.push(portfolioValue());
+
+const ctx = document.getElementById("portfolioChart").getContext("2d");
+const chart = new Chart(ctx,{
+    type:"line",
+    data:{
+        labels: history.map((_,i)=>i),
+        datasets:[{
+            data: history,
+            borderColor:"green",
+            backgroundColor:"rgba(0,128,0,0.15)",
+            fill:true,
+            tension:0.2
         }]
     },
-    options: {
-        responsive: true,
-        animation: false,
-        scales: { y: { beginAtZero: false } }
-    }
+    options:{ animation:false, responsive:true }
 });
 
-function updateGraph() {
-    portfolioHistory.push(portfolioValue);
-    if(portfolioHistory.length>60) portfolioHistory.shift();
-    portfolioChart.data.labels = portfolioHistory.map((_,i)=>i);
-    portfolioChart.data.datasets[0].data = portfolioHistory;
-    portfolioChart.update();
+function updateChart(){
+    history.push(portfolioValue());
+    if(history.length > 60) history.shift();
+    chart.data.labels = history.map((_,i)=>i);
+    chart.data.datasets[0].data = history;
+    chart.update();
     save();
 }
 
-// --- MAIN LOOP ---
-function tick(){
-    updatePrices();
-    updateUI();
+/* -------------------------------------------
+   RENDER ALL
+------------------------------------------- */
+function renderAll(){
+    renderDropdown();
+    renderHeader();
     renderMarket();
-    renderPortfolio();
-    updateGraph();
+    renderHoldings();
+    renderPortfolioValue();
 }
-setInterval(tick, 1000);
 
-// --- INITIAL LOAD ---
-updateUI();
-renderMarket();
-renderPortfolio();
-updateGraph();
+/* -------------------------------------------
+   MAIN LOOP
+------------------------------------------- */
+renderAll();
+updateChart();
+
+setInterval(()=>{
+    updatePrices();
+    renderAll();
+    updateChart();
+}, 1000);
