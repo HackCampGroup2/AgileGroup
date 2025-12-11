@@ -19,10 +19,7 @@
 
                 <div class="row g-2">
                     <div class="col-md-5">
-                        <select id="dropdown-company" class="form-select">
-
-                        <!-- Loaded by JS -->
-                        </select>
+                        <select id="dropdown-company" class="form-select"></select>
                     </div>
 
                     <div class="col-md-3">
@@ -37,24 +34,11 @@
             </div>
         </div>
 
-        <!-- TOP SECTION: PORTFOLIO + GRAPH -->
-        <div class="row mb-4">
-            <div class="col-12 col-md-5 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5>Portfolio Value</h5>
-                        <h2 id="portfolio-value">£1,000.00</h2>
-                        <p class="text-success" id="badge-display"></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-7">
-                <div class="card">
-                    <div class="card-body">
-                        <canvas id="portfolioChart" height="140"></canvas>
-                    </div>
-                </div>
+        <!-- PORTFOLIO VALUE -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5>Portfolio Value</h5>
+                <h2 id="portfolio-value">£1,000.00</h2>
             </div>
         </div>
 
@@ -94,7 +78,6 @@
                     </thead>
                     <tbody></tbody>
                 </table>
-                <div class="small text-muted">Percentage shows gain/loss relative to your average buy price.</div>
             </div>
         </div>
 
