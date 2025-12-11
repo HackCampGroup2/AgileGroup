@@ -19,6 +19,7 @@
                 </div>
             </div>
 
+
             <!-- Friends List -->
             <div class="card shadow-sm profile-card">
                 <div class="card-header bg-danger text-white">
@@ -38,8 +39,8 @@
                                     </strong>
                                 </div>
 
-                                <form action="addfriends.php" method="GET" style="display:inline;">
-                                    <input type="hidden" name="delete" value="<?= $friend['id']; ?>">
+                                <form action="addfriends.php" method="POST" style="display:inline;">
+                                    <input type="hidden" name="delete_friend" value="<?= $friend['id']; ?>">
                                     <button class="btn btn-danger btn-sm">Remove</button>
                                 </form>
 
@@ -57,11 +58,11 @@
                     <h5>Add a Friend</h5>
 
                     <!-- Show friend error message if set -->
-                    <?php if (isset($_SESSION['friend_error'])): ?>
-                        <div class="alert alert-danger">
-                            <?= htmlspecialchars($_SESSION['friend_error']); ?>
+                    <?php if (isset($_SESSION['friend_message'])): ?>
+                        <div class="alert alert-info">
+                            <?= htmlspecialchars($_SESSION['friend_message']); ?>
                         </div>
-                        <?php unset($_SESSION['friend_error']); ?>
+                        <?php unset($_SESSION['friend_message']); ?>
                     <?php endif; ?>
 
                     <form action="addfriends.php" method="POST">
@@ -73,6 +74,64 @@
                     </form>
                 </div>
             </div>
+
+            <!-- Friend Requests -->
+            <div class="card shadow-sm mt-3 profile-card">
+                <div class="card-header bg-warning text-dark">
+                    <h6 class="mb-0">Friend Requests</h6>
+                </div>
+                <div class="card-body">
+
+                    <?php if (!empty($view->requests)): ?>
+                        <?php foreach ($view->requests as $req): ?>
+                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                <strong><?= htmlspecialchars($req['sender_username']); ?></strong>
+
+                                <form action="addfriends.php" method="POST" class="d-flex">
+
+                                    <button name="accept_request"
+                                            value="<?= $req['request_id']; ?>"
+                                            class="btn btn-success btn-sm me-2">
+                                        Accept
+                                    </button>
+
+                                    <button name="decline_request"
+                                            value="<?= $req['request_id']; ?>"
+                                            class="btn btn-danger btn-sm">
+                                        Decline
+                                    </button>
+
+                                </form>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p class="text-muted">No pending requests.</p>
+                    <?php endif; ?>
+
+                </div>
+            </div>
+
+            <!-- Sent Friend Requests -->
+            <div class="card shadow-sm mt-3 profile-card">
+                <div class="card-header bg-info text-dark">
+                    <h6 class="mb-0">Sent Requests</h6>
+                </div>
+                <div class="card-body">
+
+                    <?php if (!empty($view->sentRequests)): ?>
+                        <?php foreach ($view->sentRequests as $req): ?>
+                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                <strong><?= htmlspecialchars($req['receiver_username']); ?></strong>
+                                <span class="text-muted">Pending...</span>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p class="text-muted">No outgoing requests.</p>
+                    <?php endif; ?>
+
+                </div>
+            </div>
+
 
         </div>
 
