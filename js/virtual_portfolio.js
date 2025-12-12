@@ -54,7 +54,7 @@ function save(){
 }
 
 function portfolioValue(){
-    let total = cash;
+    let total = 0;
     for (let s in holdings) {
         let c = companies.find(x => x.symbol === s);
         total += holdings[s].qty * c.price;
@@ -341,10 +341,11 @@ function renderAll(){
 /* -------------------------------------------
    MAIN LOOP
 ------------------------------------------- */
-window.onload = function () {        // [MY CHANGE] set up chart data before first render
+window.addEventListener("load", () => {
     initMarketHistory();
     renderAll();
-};
+});
+
 
 setInterval(()=>{
     updatePrices();
