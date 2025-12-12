@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-require_once('Views/register.phtml');
+require_once('Views/learning_hub.phtml');
 
 
 
