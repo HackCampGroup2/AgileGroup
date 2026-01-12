@@ -594,6 +594,7 @@
     }
 }
 
+/* Calculator container */
 .calculator {
     background: white;
     width: 100%;
@@ -605,23 +606,67 @@
     margin: 0 auto;
 }
 
-.input-group {
-    margin-bottom: 20px;
+/* Heading */
+.calculator h3 {
+    text-align: center;
+    margin-bottom: 24px;
+    font-weight: 600;
+    color: #111827;
 }
 
-.input-group label {
-    font-weight: 500;
-}
-
-.input-group input {
-    padding: 10px 12px;
+/* Optional: smaller labels (Bootstrap default is fine if you prefer) */
+.calculator label {
     font-size: 1rem;
-    border-radius: 6px;
-    flex-direction: column;
-    align-items: center;
+    color: #374151;
+    margin-bottom: 4px;
+}
+
+/* Inputs */
+.calc-input {
+    border-radius: 6px !important; /* ensures rounded corners even with Bootstrap */
     border: 1px solid #ccc;
+    padding: 10px 12px;
+}
+
+/* Button styling */
+.calc-btn {
     width: 100%;
-    max-width: 350px;
+    margin-top: 6px;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+/* Results container */
+.results-clean {
+    margin-top: 22px;
+    border-top: 1px solid #e5e9f0;
+    padding-top: 14px;
+}
+
+/* Result rows */
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 2px;
+    font-size: 0.95rem;
+    color: #374151;
+}
+
+.result-row strong {
+    font-size: 1.05rem;
+    color: #111827;
+}
+
+/* Highlight row */
+.result-row.highlight {
+    margin-top: 6px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #f4f8ff;
+    box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.12);
 }
 
 .investor {
@@ -656,6 +701,80 @@
 .change-buttons:hover {
     opacity: 0.9;
 }
+
+/* === Share Simulator Enhancements (Light Touch) === */
+
+.simulator-card {
+    background: linear-gradient(180deg, #ffffff, #f8fbff);
+}
+
+.sim-title {
+    text-align: center;
+    margin-bottom: 18px;
+    font-weight: 600;
+}
+
+/* Stats layout refinement */
+.stats {
+    background: #f4f8ff;
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin: 10px 0;
+    font-size: 17px;
+    box-shadow: inset 0 0 0 1px rgba(0, 123, 255, 0.08);
+}
+
+.stats div span {
+    font-weight: 600;
+}
+
+/* Buttons row */
+.change-buttons-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Secondary button (Sell) */
+.change-buttons.secondary {
+    background: #e5e9f0;
+    color: #1f2937;
+}
+
+/* Outline button */
+.change-buttons.outline {
+    background: white;
+    color: #007bff;
+    border: 1px solid #cfe1ff;
+    margin-top: 6px;
+}
+
+.change-buttons.outline:hover {
+    background: #f2f7ff;
+}
+
+/* Portfolio area */
+.portfolio {
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 12px;
+    background: #f9fafb;
+    border: 1px solid #e5e9f0;
+    text-align: center;
+}
+
+.portfolio-label {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+.value {
+    font-size: 22px;
+    font-weight: 700;
+    color: #111827;
+}
+
 
 /* ==========================================================
    [MY CHANGE] Module 2 – "Financial freedom" layered visual
